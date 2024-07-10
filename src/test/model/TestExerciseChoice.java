@@ -6,15 +6,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TestExerciseChoice {
-    private ExerciseDatabase exerciseChoice;
+    private ExerciseCollection exerciseChoice;
 
     @BeforeEach
     void runBefore() {
-        exerciseChoice = new ExerciseDatabase();
+        exerciseChoice = new ExerciseCollection();
     }
 
     @Test
-    void testConstructor(){
+    void testConstructor() {
         assertEquals(exerciseChoice.getExercises().size(), 3);
     }
 }

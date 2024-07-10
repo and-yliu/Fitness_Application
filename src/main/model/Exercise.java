@@ -6,8 +6,8 @@ public class Exercise {
     private String bodyPart;
     private int duration;
 
-
-    // EFFECT: create an exercise with name, description, body part, repetition and duration
+    // EFFECT: create an exercise with name, description, body part, repetition and
+    // duration
     public Exercise(String name, String description, String bodyPart, int duration) {
         this.name = name;
         this.description = description;
@@ -15,17 +15,17 @@ public class Exercise {
         this.duration = duration;
     }
 
-    // EFFECTS: get the description of the exercise 
+    // EFFECTS: get the description of the exercise
     public String getName() {
         return name;
     }
 
-    // EFFECTS: get the description of the exercise 
+    // EFFECTS: get the description of the exercise
     public String getDescription() {
         return description;
     }
 
-     // EFFECTS: get the bodyPart that is exercised by the exercise
+    // EFFECTS: get the bodyPart that is exercised by the exercise
     public String getBodyPart() {
         return bodyPart;
     }

@@ -23,7 +23,7 @@ public class TestExercise {
     }
 
     @Test
-    void testConstructor(){
+    void testConstructor() {
         assertEquals(exercise.getName(), name);
         assertEquals(exercise.getDescription(), description);
         assertEquals(exercise.getBodyPart(), bodyPart);
@@ -31,13 +31,13 @@ public class TestExercise {
     }
 
     @Test
-    void testSetDuration(){
+    void testSetDuration() {
         exercise.setDuration(10);
         assertEquals(exercise.getDuration(), 10);
     }
 
     @Test
-    void testShowExercises(){
+    void testShowExercises() {
         assertTrue(exercise.showExercises());
     }
 }

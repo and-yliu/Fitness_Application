@@ -1,9 +1,9 @@
 package model;
 
-public class ExerciseDatabase extends ListOfExercise{
+public class ExerciseCollection extends ListOfExercise {
 
     // EFFECTS: creates a exercise database that store all possible exercise
-    public ExerciseDatabase(){
+    public ExerciseCollection() {
         super();
         listOfExercises.add(new Exercise("Push-Ups", "On all fours and push up", "Arm", 60));
         listOfExercises.add(new Exercise("Sit-Ups", "Lie down, bend knees, and lift torso up", "Abs", 60));

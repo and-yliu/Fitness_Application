@@ -10,7 +10,7 @@ public class TestPlan {
     private Plan plan;
     private Exercise exercise1;
     private Exercise exercise2;
-    
+
     @BeforeEach
     void runBefore() {
         plan = new Plan();
@@ -19,7 +19,7 @@ public class TestPlan {
     }
 
     @Test
-    void testConstructor(){
+    void testConstructor() {
         assertTrue(plan.getExercises().isEmpty());
     }
 
@@ -54,7 +54,7 @@ public class TestPlan {
     }
 
     @Test
-    void testGetTotalDuration(){
+    void testGetTotalDuration() {
         assertEquals(plan.getTotalDuration(), 0);
 
         plan.addExercise(0, exercise1);
@@ -63,7 +63,7 @@ public class TestPlan {
     }
 
     @Test
-    void testAddRest(){
+    void testAddRest() {
         plan.addExercise(0, exercise1);
         plan.addExercise(1, exercise2);
         assertEquals(plan.getExercises().size(), 2);
@@ -74,7 +74,7 @@ public class TestPlan {
     }
 
     @Test
-    void testCompleteExercise(){
+    void testCompleteExercise() {
         plan.addExercise(0, exercise1);
         plan.addExercise(1, exercise2);
         assertEquals(plan.getExercises().size(), 2);
@@ -86,7 +86,7 @@ public class TestPlan {
     }
 
     @Test
-    void testCompleteExerciseMultiple(){
+    void testCompleteExerciseMultiple() {
         plan.addExercise(0, exercise1);
         plan.addExercise(1, exercise1);
         assertEquals(plan.getExercises().size(), 2);
