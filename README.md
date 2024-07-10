@@ -15,10 +15,6 @@ User can also pick their own _difficulties_ levels to increase or decrease the i
 
 ## User Stories:
 - I want to be able to add an new exercise to the workout collection and specify the name, description, repetition for differnt difficulties, and rest time. 
-<<<<<<< HEAD
 - I want to be able to see a list of exercise that I planned to do for today.
 - I want to be able to select a exercise and view its description in details.
 - I want to be able to sort the exercises that exercise the same part of the body together.
-=======
-- I want to be able to see a list of exercise with their information that I planned to do for today.
->>>>>>> faba37f (Added project description and user stories)
