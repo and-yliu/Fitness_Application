@@ -22,6 +22,7 @@ public class TestExercise {
         exercise = new Exercise(name, description, bodyPart, duration);
     }
 
+    
     @Test
     void testConstructor() {
         assertEquals(exercise.getName(), name);
