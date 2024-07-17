@@ -30,6 +30,7 @@ public class Plan extends ListOfExercise {
         return time;
     }
 
+    
     // MODIFIES: this
     // EFFECTS: Remove the given exercise from the list of ongoing exercise
     // and add it to the list of completed exercise
