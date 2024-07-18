@@ -1,13 +1,13 @@
 package model;
 
+//Represent an exerise that has a name description, body part that it exercises, and duration
 public class Exercise {
     private String name;
     private String description;
     private String bodyPart;
     private int duration;
 
-    // EFFECT: create an exercise with name, description, body part, repetition and
-    // duration
+    // EFFECT: create an exercise with name, description, body part, duration
     public Exercise(String name, String description, String bodyPart, int duration) {
         this.name = name;
         this.description = description;
@@ -41,17 +41,4 @@ public class Exercise {
     public void setDuration(int duration) {
         this.duration = duration;
     }
-
-    // EFFECTS: print the details of the exercise to the terminal
-    public boolean showExercises() {
-        boolean complete = false;
-        System.out.println("Name: " + name);
-        System.out.println("Description: " + description);
-        System.out.println("Body: " + bodyPart);
-        System.out.println("Duration: " + duration + "\n");
-        complete = true;
-
-        return complete;
-    }
-
 }

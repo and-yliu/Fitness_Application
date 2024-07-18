@@ -1,5 +1,6 @@
 package model;
 
+//Represent a list of exercises that stores all the possible exercises
 public class ExerciseCollection extends ListOfExercise {
 
     // EFFECTS: creates a exercise database that store all possible exercise

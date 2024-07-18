@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+// A abstract class that represent a list of exercise 
 public abstract class ListOfExercise {
     protected ArrayList<Exercise> listOfExercises;
 

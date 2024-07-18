@@ -8,6 +8,7 @@ import model.Exercise;
 import model.ExerciseCollection;
 import model.Plan;
 
+//Workout application
 public class WorkoutApp {
     private ExerciseCollection exerciseCollection;
     private Plan plan;
@@ -34,7 +35,7 @@ public class WorkoutApp {
             try {
                 command(input);
             } catch (InvalidInputException e) {
-                System.out.println("Invalid Input! Please try again!\n");
+                System.out.println("\nInvalid Input! Please try again!\n");
             }
         }
 
@@ -43,11 +44,11 @@ public class WorkoutApp {
 
     // EFFECTS: print the main menu of this app
     private void mainMenu() {
-        System.out.println("Welcome to Workout Planner! Please select the following: ");
+        System.out.println("\nWelcome to Workout Planner! Please select the following: ");
         System.out.println("p - see current plan");
         System.out.println("w - see all possible workouts");
         System.out.println("a - add to workout collection");
-        System.out.println("q - quit app\n");
+        System.out.println("q - quit app");
     }
 
     // MODIFIES: this
@@ -59,9 +60,9 @@ public class WorkoutApp {
             showExercises();
         } else if (input.equalsIgnoreCase("a")) {
             addWorkout();
-        } else if (input.equalsIgnoreCase("q")){
+        } else if (input.equalsIgnoreCase("q")) {
             appState = false;
-        }else{
+        } else {
             throw new InvalidInputException();
         }
     }
@@ -69,39 +70,39 @@ public class WorkoutApp {
     // MODIFIES: this
     // EFFECTS: add a workout to the front of workout collection
     private void addWorkout() {
-        System.out.println("Input the name of the workout you want add: ");
+        System.out.println("\nInput the name of the workout you want add: ");
         String name = scanner.nextLine();
 
-        System.out.println("Input the description of workout: ");
+        System.out.println("\nInput the description of workout: ");
         String description = scanner.nextLine();
 
         boolean wrongInput = true;
         String bodyPart = "";
-        while (wrongInput){
-            System.out.println("Which part of body does it exercise: ");
+        while (wrongInput) {
+            System.out.println("\nWhich part of body does it exercise: ");
             printBodyPart();
             try {
                 bodyPart = whichBodyPart(scanner.nextLine());
                 wrongInput = false;
             } catch (InvalidInputException e) {
-                System.out.println("Invalid Input! Please try again!");
+                System.out.println("\nInvalid Input! Please try again!");
             }
         }
-        
-        System.out.println("Input the duration in seconds: ");
+
+        System.out.println("\nInput the duration in seconds: ");
         int duration = Integer.parseInt(scanner.nextLine());
 
         Exercise newExer = new Exercise(name, description, bodyPart, duration);
         exerciseCollection.addExercise(0, newExer);
 
-        System.out.println("Insertion Complete!\n");
+        System.out.println("\nInsertion Complete!");
     }
 
     // EFFECTS: print all possible body parts related to the exercises
     private void printBodyPart() {
         System.out.println("a - Abs");
         System.out.println("ar - Arm");
-        System.out.println("l - Leg\n");
+        System.out.println("l - Leg");
     }
 
     // EFFECTS: return the full name of body part based on str
@@ -111,9 +112,9 @@ public class WorkoutApp {
             bodyPart = "Abs";
         } else if (str.equalsIgnoreCase("ar")) {
             bodyPart = "Arm";
-        } else if (str.equalsIgnoreCase("l")){
+        } else if (str.equalsIgnoreCase("l")) {
             bodyPart = "Leg";
-        }else{
+        } else {
             throw new InvalidInputException();
         }
         return bodyPart;
@@ -123,12 +124,12 @@ public class WorkoutApp {
     // exercise;
     private void showExercises() {
         ArrayList<Exercise> exercises = exerciseCollection.getExercises();
-        System.out.println("\nHere is the current Schedule");
+        System.out.println("\nHere is the all the workouts in your collection");
         printExerciseList(exercises);
 
         showDetail = true;
         while (showDetail) {
-            System.out.println("Use the index number to see each exercise in detail");
+            System.out.println("\nUse the index number to see each exercise in detail");
             System.out.println("'s' to sort the exercise by body part");
             System.out.println("Or 'q' to return to main menu");
             try {
@@ -148,23 +149,22 @@ public class WorkoutApp {
         } else if (nextLine.equalsIgnoreCase("s")) {
             initiateSort();
             return false;
-        } else if (isNumber(nextLine) && Integer.parseInt(nextLine) <= exercises.size()){
+        } else if (isNumber(nextLine) && Integer.parseInt(nextLine) <= exercises.size()) {
             int index = Integer.parseInt(nextLine) - 1;
             Exercise e = exercises.get(index);
-            System.out.println("\n");
-            e.showExercises();
+            showExercisesDetail(e);
             return true;
-        }else{
+        } else {
             throw new InvalidInputException();
         }
     }
 
     // EFFECT: initial and run the sorting process
-    private void initiateSort(){
+    private void initiateSort() {
         boolean wrongInput = true;
         ArrayList<Exercise> sortedList = new ArrayList<>();
 
-        while (wrongInput){
+        while (wrongInput) {
             System.out.println("\nWhich body part do you want to sort it by?");
             printBodyPart();
             try {
@@ -175,7 +175,7 @@ public class WorkoutApp {
             }
         }
 
-        System.out.println("Here is the sorted array");
+        System.out.println("\nHere is the sorted array");
         printExerciseList(sortedList);
         sortedMenu(sortedList);
     }
@@ -198,14 +198,13 @@ public class WorkoutApp {
     private void sortedMenu(ArrayList<Exercise> sortedList) {
         showDetail = true;
         while (showDetail) {
-            System.out.println("Use the index number to see each exercise in detail.");
+            System.out.println("\nUse the index number to see each exercise in detail.");
             System.out.println("Or 'q' to return to main menu");
             try {
                 showDetail = menu(scanner.nextLine(), sortedList);
             } catch (InvalidInputException e) {
                 System.out.println("Invalid Input! Please try again!");
             }
-            System.out.println("\n");
         }
     }
 
@@ -214,22 +213,21 @@ public class WorkoutApp {
     private void showPlan() {
         ArrayList<Exercise> exercises = plan.getExercises();
         if (exercises.isEmpty()) {
-            System.out.println("Your plan is currently empty.");
+            System.out.println("\nYour plan is currently empty.");
         } else {
             printExerciseList(exercises);
         }
 
         showDetail = true;
         while (showDetail) {
-            System.out.println("'r' - remove an exercise at an index");
+            System.out.println("\n'r' - remove an exercise at an index");
             System.out.println("'a' - add an exercise at an index");
             System.out.println("'q' to return to main menu");
             try {
                 editPlan(scanner.nextLine(), exercises);
             } catch (InvalidInputException e) {
-                System.out.println("Invalid Input! Please try again!\n");
+                System.out.println("\nInvalid Input! Please try again!\n");
             }
-            System.out.println("\n");
         }
     }
 
@@ -238,36 +236,36 @@ public class WorkoutApp {
     // the user or quit back to main menu
     private void editPlan(String nextLine, ArrayList<Exercise> exercises) throws InvalidInputException {
         if (nextLine.equalsIgnoreCase("r")) {
-            System.out.println("Enter the index of the exercise to remove: ");
+            System.out.println("\nEnter the index of the exercise to remove: ");
             exercises.remove(Integer.parseInt(scanner.nextLine()) - 1);
 
-            System.out.println("Remove Successful! Here is the current schedule: ");
+            System.out.println("\nRemove Successful! Here is the current schedule: ");
             printExerciseList(exercises);
         } else if (nextLine.equalsIgnoreCase("a")) {
             addExercise(exercises);
-        } else if (nextLine.equalsIgnoreCase("q")){
+        } else if (nextLine.equalsIgnoreCase("q")) {
             showDetail = false;
-        }else{
+        } else {
             throw new InvalidInputException();
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: add a exercise from the exerciseCollection to addExerciseList
-    private void addExercise(ArrayList<Exercise> addExerciseList){
+    // MODIFIES: this
+    // EFFECTS: add a exercise from the exerciseCollection to addExerciseList
+    private void addExercise(ArrayList<Exercise> addExerciseList) {
         ArrayList<Exercise> collection = exerciseCollection.getExercises();
+        System.out.println("\nHere is all the exercise to choose from:");
         printExerciseList(collection);
 
-        System.out.println("Enter the index of the exercise from the collection: ");
+        System.out.println("\nEnter the index of the exercise from the collection: ");
         int fromIndex = Integer.parseInt(scanner.nextLine()) - 1;
-        System.out.println("Enter the index of the exercise to add to the plan: ");
+        System.out.println("\nEnter the index of the exercise to add to the plan: ");
         int toIndex = Integer.parseInt(scanner.nextLine()) - 1;
 
         addExerciseList.add(toIndex, collection.get(fromIndex));
         System.out.println("\nAdd Successful! Here is the current schedule: ");
         printExerciseList(addExerciseList);
     }
-
 
     // EFFECTS: print the given list of exercise on the terminal
     private void printExerciseList(ArrayList<Exercise> exercises) {
@@ -280,16 +278,23 @@ public class WorkoutApp {
             System.out.println(index + 1 + ". " + e.getName() + ": " + e.getDuration() + " sec");
             index++;
         }
-        System.out.println("\n");
     }
 
     // EFFECTS: return true if the string is a number and false otherwise
-    private boolean isNumber(String string){
+    private boolean isNumber(String string) {
         try {
             Integer.parseInt(string);
             return true;
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    // EFFECTS: print the details of the exercise to the terminal
+    public void showExercisesDetail(Exercise e) {
+        System.out.println("\nName: " + e.getName());
+        System.out.println("Description: " + e.getDescription());
+        System.out.println("Body: " + e.getBodyPart());
+        System.out.println("Duration: " + e.getDuration());
     }
 }

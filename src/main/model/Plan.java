@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+//Represent a plan of exercise you are planing to do 
 public class Plan extends ListOfExercise {
     private ArrayList<Exercise> completedExercise;
 
