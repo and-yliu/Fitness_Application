@@ -149,8 +149,8 @@ public class WorkoutApp {
             return false;
         } else if (isNumber(nextLine) && Integer.parseInt(nextLine) <= exercises.size()) {
             int index = Integer.parseInt(nextLine) - 1;
-            Exercise e = exercises.get(index);
-            showExercisesDetail(e);
+            Exercise exercise = exercises.get(index);
+            showExercisesDetail(exercise);
             return true;
         } else {
             throw new InvalidInputException();
@@ -183,9 +183,9 @@ public class WorkoutApp {
         ArrayList<Exercise> exercises = new ArrayList<>();
         String bodyPart = whichBodyPart(nextLine);
 
-        for (Exercise e : exerciseCollection.getExercises()) {
-            if (e.getBodyPart().equals(bodyPart)) {
-                exercises.add(e);
+        for (Exercise exercise : exerciseCollection.getExercises()) {
+            if (exercise.getBodyPart().equals(bodyPart)) {
+                exercises.add(exercise);
             }
         }
         return exercises;
@@ -194,12 +194,12 @@ public class WorkoutApp {
     // EFFECTS: display this menu when user is displayed with
     // a sorted collection of exercise by body part
     private void sortedMenu(ArrayList<Exercise> sortedList) {
-        boolean showDetail = true;
-        while (showDetail) {
+        boolean keepGoing = true;
+        while (keepGoing) {
             System.out.println("\nUse the index number to see each exercise in detail.");
             System.out.println("Or 'q' to return to main menu");
             try {
-                showDetail = menu(scanner.nextLine(), sortedList);
+                keepGoing = menu(scanner.nextLine(), sortedList);
             } catch (InvalidInputException e) {
                 System.out.println("Invalid Input! Please try again!");
             }
@@ -216,13 +216,13 @@ public class WorkoutApp {
             printExerciseList(exercises);
         }
 
-        boolean showDetail = true;
-        while (showDetail) {
+        boolean keepGoing = true;
+        while (keepGoing) {
             System.out.println("\n'r' - remove an exercise at an index");
             System.out.println("'a' - add an exercise at an index");
             System.out.println("'q' to return to main menu");
             try {
-                showDetail = editPlan(scanner.nextLine(), exercises);
+                keepGoing = editPlan(scanner.nextLine(), exercises);
             } catch (InvalidInputException e) {
                 System.out.println("\nInvalid Input! Please try again!\n");
             }
@@ -280,8 +280,8 @@ public class WorkoutApp {
             System.out.println("Empty List!");
         }
 
-        for (Exercise e : exercises) {
-            System.out.println(index + 1 + ". " + e.getName() + ": " + e.getDuration() + " sec");
+        for (Exercise exercise : exercises) {
+            System.out.println(index + 1 + ". " + exercise.getName() + ": " + exercise.getDuration() + " sec");
             index++;
         }
     }
@@ -297,10 +297,10 @@ public class WorkoutApp {
     }
 
     // EFFECTS: print the details of the exercise to the terminal
-    public void showExercisesDetail(Exercise e) {
-        System.out.println("\nName: " + e.getName());
-        System.out.println("Description: " + e.getDescription());
-        System.out.println("Body: " + e.getBodyPart());
-        System.out.println("Duration: " + e.getDuration());
+    public void showExercisesDetail(Exercise exercise) {
+        System.out.println("\nName: " + exercise.getName());
+        System.out.println("Description: " + exercise.getDescription());
+        System.out.println("Body: " + exercise.getBodyPart());
+        System.out.println("Duration: " + exercise.getDuration());
     }
 }
