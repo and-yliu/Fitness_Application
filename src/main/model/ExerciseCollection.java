@@ -3,7 +3,7 @@ package model;
 //Represent a list of exercises that stores all the possible exercises
 public class ExerciseCollection extends ListOfExercise {
 
-    // EFFECTS: creates a exercise database that store all possible exercise
+    // EFFECTS: construct an exercise database that store all possible exercise
     public ExerciseCollection() {
         super();
         listOfExercises.add(new Exercise("Push-Ups", "On all fours and push up", "Arm", 60));

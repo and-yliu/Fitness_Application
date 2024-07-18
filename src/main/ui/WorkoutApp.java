@@ -13,10 +13,9 @@ public class WorkoutApp {
     private ExerciseCollection exerciseCollection;
     private Plan plan;
     private boolean appState;
-    private boolean showDetail;
     private Scanner scanner = new Scanner(System.in);
 
-    // EFFECTS: constructor a workout app
+    // EFFECTS: constructor a workout console ui application
     public WorkoutApp() {
         startApp();
     }
@@ -120,14 +119,13 @@ public class WorkoutApp {
         return bodyPart;
     }
 
-    // EFFECTS: print all possible exercises and ask user interact with the
-    // exercise;
+    // EFFECTS: print all possible exercises and ask user interact with them
     private void showExercises() {
         ArrayList<Exercise> exercises = exerciseCollection.getExercises();
         System.out.println("\nHere is the all the workouts in your collection");
         printExerciseList(exercises);
 
-        showDetail = true;
+        boolean showDetail = true;
         while (showDetail) {
             System.out.println("\nUse the index number to see each exercise in detail");
             System.out.println("'s' to sort the exercise by body part");
@@ -196,7 +194,7 @@ public class WorkoutApp {
     // EFFECTS: display this menu when user is displayed with
     // a sorted collection of exercise by body part
     private void sortedMenu(ArrayList<Exercise> sortedList) {
-        showDetail = true;
+        boolean showDetail = true;
         while (showDetail) {
             System.out.println("\nUse the index number to see each exercise in detail.");
             System.out.println("Or 'q' to return to main menu");
@@ -218,51 +216,59 @@ public class WorkoutApp {
             printExerciseList(exercises);
         }
 
-        showDetail = true;
+        boolean showDetail = true;
         while (showDetail) {
             System.out.println("\n'r' - remove an exercise at an index");
             System.out.println("'a' - add an exercise at an index");
             System.out.println("'q' to return to main menu");
             try {
-                editPlan(scanner.nextLine(), exercises);
+                showDetail = editPlan(scanner.nextLine(), exercises);
             } catch (InvalidInputException e) {
                 System.out.println("\nInvalid Input! Please try again!\n");
             }
         }
     }
 
-    // MODIFIES: this
+    // MODIFIES: this AND exercises
     // EFFECTS: edit the plan by adding or removing exercise base on the response on
     // the user or quit back to main menu
-    private void editPlan(String nextLine, ArrayList<Exercise> exercises) throws InvalidInputException {
+    private boolean editPlan(String nextLine, ArrayList<Exercise> exercises) throws InvalidInputException {
         if (nextLine.equalsIgnoreCase("r")) {
             System.out.println("\nEnter the index of the exercise to remove: ");
             exercises.remove(Integer.parseInt(scanner.nextLine()) - 1);
 
             System.out.println("\nRemove Successful! Here is the current schedule: ");
             printExerciseList(exercises);
+
+            return true;
+
         } else if (nextLine.equalsIgnoreCase("a")) {
             addExercise(exercises);
+            return true;
+
         } else if (nextLine.equalsIgnoreCase("q")) {
-            showDetail = false;
+            return false;
+
         } else {
             throw new InvalidInputException();
         }
     }
 
-    // MODIFIES: this
+    // MODIFIES: this AND addExerciseList
     // EFFECTS: add a exercise from the exerciseCollection to addExerciseList
     private void addExercise(ArrayList<Exercise> addExerciseList) {
         ArrayList<Exercise> collection = exerciseCollection.getExercises();
+
         System.out.println("\nHere is all the exercise to choose from:");
         printExerciseList(collection);
 
         System.out.println("\nEnter the index of the exercise from the collection: ");
         int fromIndex = Integer.parseInt(scanner.nextLine()) - 1;
+
         System.out.println("\nEnter the index of the exercise to add to the plan: ");
         int toIndex = Integer.parseInt(scanner.nextLine()) - 1;
-
         addExerciseList.add(toIndex, collection.get(fromIndex));
+
         System.out.println("\nAdd Successful! Here is the current schedule: ");
         printExerciseList(addExerciseList);
     }

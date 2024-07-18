@@ -27,10 +27,8 @@ public class Plan extends ListOfExercise {
         for (Exercise e : listOfExercises) {
             time += e.getDuration();
         }
-
         return time;
     }
-
     
     // MODIFIES: this
     // EFFECTS: Remove the given exercise from the list of ongoing exercise
