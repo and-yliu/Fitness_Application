@@ -17,24 +17,24 @@ public class Plan extends ListOfExercise {
     // EFFECTS: add a rest to a given index in the list of exercises;
     public void addRest(int index) {
         Exercise rest = new Exercise("Rest", null, null, 30);
-        listOfExercises.add(index, rest);
+        super.getExercises().add(index, rest);
     }
 
     // EFFECTS: return the total number of seconds the whole plan is going to take
     public int getTotalDuration() {
         int time = 0;
 
-        for (Exercise e : listOfExercises) {
+        for (Exercise e : super.getExercises()) {
             time += e.getDuration();
         }
         return time;
     }
-    
+
     // MODIFIES: this
     // EFFECTS: Remove the given exercise from the list of ongoing exercise
     // and add it to the list of completed exercise
     public void completeExercise(Exercise exercise) {
-        listOfExercises.remove(exercise);
+        super.getExercises().remove(exercise);
         completedExercise.add(exercise);
     }
 

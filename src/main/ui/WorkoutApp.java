@@ -1,5 +1,7 @@
 package ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,24 +9,38 @@ import exception.InvalidInputException;
 import model.Exercise;
 import model.ExerciseCollection;
 import model.Plan;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 //Workout application
 public class WorkoutApp {
+    private static final String JSON_FILE_PLAN = "./data/plan.json";
+    private static final String JSON_FILE_COLLECTION = "./data/collection.json";
     private ExerciseCollection exerciseCollection;
     private Plan plan;
+    private JsonWriter jsonWriterPlan;
+    private JsonReader jsonReaderPlan;
+    private JsonWriter jsonWriterCol;
+    private JsonReader jsonReaderCol;
     private boolean appState;
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
 
     // EFFECTS: constructor a workout console ui application
     public WorkoutApp() {
+        scanner = new Scanner(System.in);
+        jsonWriterPlan = new JsonWriter(JSON_FILE_PLAN);
+        jsonReaderPlan = new JsonReader(JSON_FILE_PLAN);
+        jsonWriterCol = new JsonWriter(JSON_FILE_COLLECTION);
+        jsonReaderCol = new JsonReader(JSON_FILE_COLLECTION);
+        exerciseCollection = new ExerciseCollection();
+        plan = new Plan();
+        exerciseCollection.addDefaultExercise();
         startApp();
     }
 
     // MODIFIES: this
     // EFFECTS: start the app and create a exerciseCollection and a exericse plan
     private void startApp() {
-        exerciseCollection = new ExerciseCollection();
-        plan = new Plan();
         appState = true;
         String input;
 
@@ -47,6 +63,8 @@ public class WorkoutApp {
         System.out.println("p - see current plan");
         System.out.println("w - see all possible workouts");
         System.out.println("a - add to workout collection");
+        System.out.println("s - save current workout plan");
+        System.out.println("l - load saved workout plan");
         System.out.println("q - quit app");
     }
 
@@ -59,6 +77,10 @@ public class WorkoutApp {
             showExercises();
         } else if (input.equalsIgnoreCase("a")) {
             addWorkout();
+        } else if (input.equalsIgnoreCase("s")) {
+            saveSchedule();
+        } else if (input.equalsIgnoreCase("l")) {
+            loadSchedule();
         } else if (input.equalsIgnoreCase("q")) {
             appState = false;
         } else {
@@ -213,6 +235,7 @@ public class WorkoutApp {
         if (exercises.isEmpty()) {
             System.out.println("\nYour plan is currently empty.");
         } else {
+            System.out.println("\n");
             printExerciseList(exercises);
         }
 
@@ -303,4 +326,35 @@ public class WorkoutApp {
         System.out.println("Body: " + exercise.getBodyPart());
         System.out.println("Duration: " + exercise.getDuration());
     }
+
+    // EFFECTS: saves both the plan and exerciseCollection to their files
+    private void saveSchedule() {
+        try {
+            jsonWriterPlan.open();
+            ;
+            jsonWriterPlan.write(plan);
+            jsonWriterPlan.close();
+
+            jsonWriterCol.open();
+            jsonWriterCol.write(exerciseCollection);
+            jsonWriterCol.close();
+
+            System.out.println("Saved plan to file");
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file");
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: load plan and exerciseCollection from the files
+    private void loadSchedule() {
+        try {
+            plan = jsonReaderPlan.readPlan();
+            exerciseCollection = jsonReaderCol.readCollection();
+            System.out.println("Loaded saved plan from file");
+        } catch (IOException e) {
+            System.out.println("Unable to read from file");
+        }
+    }
+
 }

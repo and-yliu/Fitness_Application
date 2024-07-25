@@ -1,0 +1,20 @@
+{"Exercises": [
+    {
+        "duration": 60,
+        "name": "Push-Ups",
+        "description": "Push-Ups",
+        "bodyPart": "Arm"
+    },
+    {
+        "duration": 60,
+        "name": "Sit-Ups",
+        "description": "Sit-Ups",
+        "bodyPart": "Abs"
+    },
+    {
+        "duration": 60,
+        "name": "Squats",
+        "description": "Squats",
+        "bodyPart": "Leg"
+    }
+]}

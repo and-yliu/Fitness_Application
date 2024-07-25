@@ -1,0 +1,26 @@
+{"Exercises": [
+    {
+        "duration": 30,
+        "name": "Jump",
+        "description": "Jump",
+        "bodyPart": "Leg"
+    },
+    {
+        "duration": 60,
+        "name": "Push-Ups",
+        "description": "On all fours and push up",
+        "bodyPart": "Arm"
+    },
+    {
+        "duration": 60,
+        "name": "Sit-Ups",
+        "description": "Lie down, bend knees, and lift torso up",
+        "bodyPart": "Abs"
+    },
+    {
+        "duration": 60,
+        "name": "Squats",
+        "description": "Stand feet apart and bend knees",
+        "bodyPart": "Leg"
+    }
+]}

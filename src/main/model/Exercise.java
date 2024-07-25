@@ -1,7 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+
+import persistence.Writable;
+
 //Represent an exerise that has a name description, body part that it exercises, and duration
-public class Exercise {
+public class Exercise implements Writable {
     private String name;
     private String description;
     private String bodyPart;
@@ -40,5 +44,18 @@ public class Exercise {
     // EFFECTS: change the duration of the exercise
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    // EFFECTS: change Exercise object to JSONObject
+    @Override
+    public JSONObject toJsonObject() {
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("name", name);
+        jsonObject.put("description", description);
+        jsonObject.put("bodyPart", bodyPart);
+        jsonObject.put("duration", duration);
+
+        return jsonObject;
     }
 }
