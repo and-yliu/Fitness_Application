@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import model.ListOfExercise;
 
 // A writer that writes the JSON representation of plan and collection to the files
+// With references to the demo in the link below
 // Citiation: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class JsonWriter {
     private static final int TAB = 4;

@@ -14,8 +14,9 @@ import model.ExerciseCollection;
 import model.ListOfExercise;
 import model.Plan;
 
-//A reader that reads the JSON data stored in plan and collection file
-//Citiation: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+// A reader that reads the JSON data stored in plan and collection file
+// With references to the demo in the link below
+// Citiation: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class JsonReader {
     private String source;
 

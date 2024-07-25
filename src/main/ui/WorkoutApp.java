@@ -235,7 +235,7 @@ public class WorkoutApp {
         if (exercises.isEmpty()) {
             System.out.println("\nYour plan is currently empty.");
         } else {
-            System.out.println("\n");
+            System.out.println("\nHere is the current plan: ");
             printExerciseList(exercises);
         }
 
@@ -339,9 +339,9 @@ public class WorkoutApp {
             jsonWriterCol.write(exerciseCollection);
             jsonWriterCol.close();
 
-            System.out.println("Saved plan to file");
+            System.out.println("Saved plan to file!");
         } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file");
+            System.out.println("Unable to write to file!");
         }
     }
 
@@ -351,9 +351,9 @@ public class WorkoutApp {
         try {
             plan = jsonReaderPlan.readPlan();
             exerciseCollection = jsonReaderCol.readCollection();
-            System.out.println("Loaded saved plan from file");
+            System.out.println("Loaded saved plan from file!");
         } catch (IOException e) {
-            System.out.println("Unable to read from file");
+            System.out.println("Unable to read from file!");
         }
     }
 

@@ -18,5 +18,5 @@ Anyone with a habit of working out or a interest in starting to workout can use 
 - I want to be able to see a list of all possible exercise in my schedule.
 - I want to be able to select a exercise and view its description in details.
 - I want to be able to sort the exercises that exercise the same part of the body together.
-- I want to be able to save my current exercises schedule that I planned if I choose so.
-- I want to be able to reload my saved exercise schedule and continue make edits if I choose so
+- I want to be able to save my current exercises schedule and collection if I choose so.
+- I want to be able to reload my saved exercise schedule and collection to continue make edits if I choose so

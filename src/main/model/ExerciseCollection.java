@@ -10,6 +10,7 @@ public class ExerciseCollection extends ListOfExercise {
         super();
     }
 
+    // MODIFIES: this
     // EFFECTS: add default exercise to the exercise collection
     public void addDefaultExercise() {
         ArrayList<Exercise> exercises = super.getExercises();
