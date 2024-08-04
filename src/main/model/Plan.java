@@ -16,7 +16,7 @@ public class Plan extends ListOfExercise {
     // MODIFIES: this
     // EFFECTS: add a rest to a given index in the list of exercises;
     public void addRest(int index) {
-        Exercise rest = new Exercise("Rest", null, null, 30);
+        Exercise rest = new Exercise("Rest", "Take a Break", "None", 30);
         super.getExercises().add(index, rest);
     }
 

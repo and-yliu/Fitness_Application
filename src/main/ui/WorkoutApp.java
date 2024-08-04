@@ -331,7 +331,7 @@ public class WorkoutApp {
     private void saveSchedule() {
         try {
             jsonWriterPlan.open();
-            ;
+            
             jsonWriterPlan.write(plan);
             jsonWriterPlan.close();
 

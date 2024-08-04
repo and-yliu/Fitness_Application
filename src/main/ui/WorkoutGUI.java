@@ -1,0 +1,161 @@
+package ui;
+
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+
+import model.ExerciseCollection;
+import model.Plan;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+public class WorkoutGUI extends JFrame {
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
+    private static final String JSON_FILE_PLAN = "./data/plan.json";
+    private static final String JSON_FILE_COLLECTION = "./data/collection.json";
+    protected ExerciseCollection exerciseCollection;
+    protected Plan plan;
+    private JsonWriter jsonWriterPlan;
+    private JsonReader jsonReaderPlan;
+    private JsonWriter jsonWriterCol;
+    private JsonReader jsonReaderCol;
+    private JLabel label;
+
+    public WorkoutGUI() {
+        super("Workout Planner");
+        setSize(WIDTH, HEIGHT);
+
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        initializeApp();
+        setVisible(true);
+    }
+
+    private void initializeApp() {
+        jsonWriterPlan = new JsonWriter(JSON_FILE_PLAN);
+        jsonReaderPlan = new JsonReader(JSON_FILE_PLAN);
+        jsonWriterCol = new JsonWriter(JSON_FILE_COLLECTION);
+        jsonReaderCol = new JsonReader(JSON_FILE_COLLECTION);
+        exerciseCollection = new ExerciseCollection();
+        label = new JLabel("Welcome to Workout Planner!", SwingConstants.CENTER);
+        label.setFont(new Font("SansSerif", Font.PLAIN, 30));
+        add(label, BorderLayout.CENTER);
+        plan = new Plan();
+        exerciseCollection.addDefaultExercise();
+        plan.addRest(0);
+        addButtonPanel();
+    }
+
+    private void addButtonPanel() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(0, 1));
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        buttonPanel.add(new JButton(new PlanAction()));
+        buttonPanel.add(new JButton(new CollectionAction()));
+        buttonPanel.add(new JButton(new SaveAction()));
+        buttonPanel.add(new JButton(new LoadAction()));
+        buttonPanel.add(new JButton(new QuitAction()));
+    }
+
+    
+
+    private class PlanAction extends AbstractAction {
+
+        PlanAction() {
+            super("Plan");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            new PlanGUI(plan, exerciseCollection);
+        }
+    }
+
+    private class CollectionAction extends AbstractAction {
+
+        CollectionAction() {
+            super("Exercise Collection");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            new CollectionGUI(exerciseCollection);
+        }
+    }
+
+    private class SaveAction extends AbstractAction {
+
+        SaveAction() {
+            super("Save Plan");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            try {
+                jsonWriterPlan.open();
+
+                jsonWriterPlan.write(plan);
+                jsonWriterPlan.close();
+
+                jsonWriterCol.open();
+                jsonWriterCol.write(exerciseCollection);
+                jsonWriterCol.close();
+
+                JOptionPane.showMessageDialog(null, "Saved plan to file!", "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } catch (FileNotFoundException e) {
+                JOptionPane.showMessageDialog(null, "Unable to write to file!", "System Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private class LoadAction extends AbstractAction {
+
+        LoadAction() {
+            super("Load Plan");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            try {
+                plan = jsonReaderPlan.readPlan();
+                exerciseCollection = jsonReaderCol.readCollection();
+                JOptionPane.showMessageDialog(null, "Loaded saved plan from file!", "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Unable to read from file!", "System Error",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private class QuitAction extends AbstractAction {
+
+        QuitAction() {
+            super("Quit Application");
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent evt) {
+            dispose();
+            System.exit(0);
+        }
+    }
+
+    public ExerciseCollection getExerciseCollection() {
+        return exerciseCollection;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+}

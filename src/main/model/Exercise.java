@@ -58,4 +58,10 @@ public class Exercise implements Writable {
 
         return jsonObject;
     }
+
+    @Override
+    public String toString() {
+        return name + ": " + duration + " sec";
+    }
+    
 }
