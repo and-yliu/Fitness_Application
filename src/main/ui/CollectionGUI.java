@@ -13,6 +13,9 @@ import model.ExerciseCollection;
 import model.ListOfExercise;
 
 // Represent an Window that allows user to interact with their collection
+// With references to https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
+// Alarm System: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
+// SimpleDrawingEditor: https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Starter.git
 public class CollectionGUI extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
@@ -92,9 +95,7 @@ public class CollectionGUI extends JFrame {
                     sortModel.addElement(e);
                 }
             }
-
             sortList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            sortList.setLayoutOrientation(JList.VERTICAL);
             sortList.setVisibleRowCount(-1);
             JScrollPane listScroller = new JScrollPane(sortList);
             frame.add(label, BorderLayout.NORTH);

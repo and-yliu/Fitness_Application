@@ -15,7 +15,7 @@ public class TestJsonReader {
     private Plan plan;
 
     @Test
-    void testReadInvalidFile(){
+    void testReadInvalidFile() {
         try {
             JsonReader jsonReader = new JsonReader("./data/invalidFile.json");
             exerciseCollection = jsonReader.readCollection();
@@ -26,12 +26,12 @@ public class TestJsonReader {
     }
 
     @Test
-    void testReadEmptyFile(){
+    void testReadEmptyFile() {
         try {
             JsonReader jsonReader = new JsonReader("./data/testEmpty.json");
             exerciseCollection = jsonReader.readCollection();
             assertEquals(exerciseCollection.getExercises().size(), 0);
-            
+
             plan = jsonReader.readPlan();
             assertEquals(plan.getExercises().size(), 0);
         } catch (IOException e) {
@@ -40,7 +40,7 @@ public class TestJsonReader {
     }
 
     @Test
-    void testReadGeneralFile(){
+    void testReadGeneralFile() {
         try {
             JsonReader jsonReaderCol = new JsonReader("./data/testReadCollection.json");
             JsonReader jsonReaderPlan = new JsonReader("./data/testReadPlan.json");
@@ -51,7 +51,7 @@ public class TestJsonReader {
             assertEquals(exerciseCollection.getExercises().get(1).getName(), "Push-Ups");
             assertEquals(exerciseCollection.getExercises().get(2).getName(), "Sit-Ups");
             assertEquals(exerciseCollection.getExercises().get(3).getName(), "Squats");
-            
+
             plan = jsonReaderPlan.readPlan();
             assertEquals(plan.getExercises().size(), 3);
             assertEquals(plan.getExercises().get(0).getName(), "Push-Ups");
@@ -61,8 +61,5 @@ public class TestJsonReader {
             fail("Exception should not be thrown");
         }
     }
-
-
-
 
 }

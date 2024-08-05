@@ -15,6 +15,9 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 
 // Represent the main menu of the Workout App
+// With references to https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
+// Alarm System: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
+// SimpleDrawingEditor: https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Starter.git
 public class WorkoutGUI extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;

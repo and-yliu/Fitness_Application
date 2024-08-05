@@ -6,11 +6,11 @@ import exception.InvalidInputException;
 
 public class TestExecption {
     @Test
-    void testException(){
+    void testException() {
         try {
             throw new InvalidInputException();
         } catch (InvalidInputException e) {
-            //pass
+            // pass
         }
     }
 }

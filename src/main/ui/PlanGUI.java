@@ -18,6 +18,9 @@ import model.ListOfExercise;
 import model.Plan;
 
 // Represent an Window that allows user to interact with their plan
+// With references to https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
+// Alarm System: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
+// SimpleDrawingEditor: https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Starter.git
 public class PlanGUI extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
