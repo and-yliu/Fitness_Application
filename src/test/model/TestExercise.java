@@ -35,4 +35,9 @@ public class TestExercise {
         exercise.setDuration(10);
         assertEquals(exercise.getDuration(), 10);
     }
+
+    @Test
+    void testToString() {
+        assertEquals(exercise.toString(), "Test: 30 sec");
+    }
 }

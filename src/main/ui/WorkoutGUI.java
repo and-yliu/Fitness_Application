@@ -8,13 +8,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import model.ExerciseCollection;
 import model.Plan;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+// Represent the main menu of the Workout App
 public class WorkoutGUI extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
@@ -28,6 +28,7 @@ public class WorkoutGUI extends JFrame {
     private JsonReader jsonReaderCol;
     private JLabel label;
 
+    // EFFECTS: instantiate the WorkoutGUI frame
     public WorkoutGUI() {
         super("Workout Planner");
         setSize(WIDTH, HEIGHT);
@@ -38,6 +39,8 @@ public class WorkoutGUI extends JFrame {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: setting up the frame and enable actions
     private void initializeApp() {
         jsonWriterPlan = new JsonWriter(JSON_FILE_PLAN);
         jsonReaderPlan = new JsonReader(JSON_FILE_PLAN);
@@ -53,6 +56,8 @@ public class WorkoutGUI extends JFrame {
         addButtonPanel();
     }
 
+    // MODIFIES: this
+    // EFFECTS: add a panel of buttons to the frame
     private void addButtonPanel() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(0, 1));
@@ -65,38 +70,46 @@ public class WorkoutGUI extends JFrame {
         buttonPanel.add(new JButton(new QuitAction()));
     }
 
-    
-
+    // Represent an action that opens the PlanGUI
     private class PlanAction extends AbstractAction {
 
+        // EFFECT: Instantiate plan action
         PlanAction() {
             super("Plan");
         }
 
+        // EFFECT: Open a new window in PlanGUI
         @Override
         public void actionPerformed(ActionEvent evt) {
             new PlanGUI(plan, exerciseCollection);
         }
     }
 
+    // Represent an action that opens the CollectionGUI
     private class CollectionAction extends AbstractAction {
 
+        // EFFECT: Instantiate collection action
         CollectionAction() {
             super("Exercise Collection");
         }
 
+        // EFFECT: Open a new window in CollectionGUI
         @Override
         public void actionPerformed(ActionEvent evt) {
             new CollectionGUI(exerciseCollection);
         }
     }
 
+    // Represent an action that save the current state of the app
     private class SaveAction extends AbstractAction {
 
+        // EFFECT: Instantiate save action
         SaveAction() {
             super("Save Plan");
         }
 
+        // MODIFIES: this
+        // EFFECTS: save the app to the file
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
@@ -118,12 +131,16 @@ public class WorkoutGUI extends JFrame {
         }
     }
 
+    // Represent an action that load the saved state of the app
     private class LoadAction extends AbstractAction {
 
+        // EFFECT: Instantiate load action
         LoadAction() {
             super("Load Plan");
         }
 
+        // MODIFIES: this
+        // EFFECTS: load the saved app state from the file
         @Override
         public void actionPerformed(ActionEvent evt) {
             try {
@@ -138,24 +155,20 @@ public class WorkoutGUI extends JFrame {
         }
     }
 
+    // Represent an Action that close the WorkoutGUI window
     private class QuitAction extends AbstractAction {
 
+        // EFFECTS: Constructe an quit action
         QuitAction() {
             super("Quit Application");
         }
 
+        // MODIFIES: this
+        // EFFECTS: Close the window when clicked and exit program
         @Override
         public void actionPerformed(ActionEvent evt) {
             dispose();
             System.exit(0);
         }
-    }
-
-    public ExerciseCollection getExerciseCollection() {
-        return exerciseCollection;
-    }
-
-    public Plan getPlan() {
-        return plan;
     }
 }

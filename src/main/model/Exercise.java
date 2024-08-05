@@ -59,9 +59,10 @@ public class Exercise implements Writable {
         return jsonObject;
     }
 
+    // EFFECTS: when toString() is call output both name and duration
     @Override
     public String toString() {
         return name + ": " + duration + " sec";
     }
-    
+
 }

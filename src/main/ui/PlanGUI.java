@@ -3,51 +3,43 @@ package ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractAction;
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListModel;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
+import javax.swing.*;
 
-import exception.InvalidInputException;
 import model.Exercise;
 import model.ExerciseCollection;
 import model.ListOfExercise;
 import model.Plan;
 
-public class PlanGUI extends JFrame{
+// Represent an Window that allows user to interact with their plan
+public class PlanGUI extends JFrame {
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
     private JList<Object> collection;
     private DefaultListModel<Object> collectionModel;
     private ExerciseCollection exerciseCollection;
     private Plan plan;
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
     protected DefaultListModel<Object> listModel;
     protected JList<Object> list;
     private JPanel panel;
 
+    // EFFECTS: Instantiate the PlanGUI frame
     public PlanGUI(Plan plan, ExerciseCollection exerciseCollection) {
         super("Workout Plan");
         this.exerciseCollection = exerciseCollection;
         this.plan = plan;
+        startFrame();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: setting up the frame and enable actions
+    private void startFrame() {
         panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         collectionModel = new DefaultListModel<>();
@@ -58,12 +50,16 @@ public class PlanGUI extends JFrame{
 
         addActions();
         displayList(plan, listModel, list, "Here is your current workout plan: ");
-        displayList(exerciseCollection, collectionModel, collection,"Here is the all the workouts in your collection: ");
+        displayList(exerciseCollection, collectionModel, collection,
+                "Here is the all the workouts in your collection: ");
         add(panel);
         setVisible(true);
     }
 
-    public void displayList(ListOfExercise listOfExercise, DefaultListModel<Object> model, JList<Object> list, String string) {
+    // MODIFIES: this
+    // EFFECTS: Display the listOfExercise onto the frame with message string
+    public void displayList(ListOfExercise listOfExercise, DefaultListModel<Object> model, JList<Object> list,
+            String string) {
         for (Exercise e : listOfExercise.getExercises()) {
             model.addElement(e);
         }
@@ -77,6 +73,8 @@ public class PlanGUI extends JFrame{
         panel.add(listScroller);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Add a panel of buttons to the frame
     public void addActions() {
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(0, 1));
@@ -88,50 +86,16 @@ public class PlanGUI extends JFrame{
         buttonPanel.add(new JButton(new QuitAction()));
     }
 
-    // EFFECTS: print the details of the exercise to the terminal
-    public void showExercisesDetail(Exercise exercise) {
-        JFrame frame = new JFrame("Excercise Information");
-
-        JLabel label = new JLabel("<html>Name: " + exercise.getName()
-                + "<br>Description: " + exercise.getDescription() + "<br>Body: " + exercise.getBodyPart()
-                + "<br>Duration: " + exercise.getDuration() + "</html>",
-                JLabel.CENTER);
-        frame.getContentPane().add(label, BorderLayout.CENTER);
-        frame.setSize(300, 200);
-        
-        frame.setVisible(true);
-    }
-
-    private String whichBodyPart(String str) throws InvalidInputException {
-        String bodyPart = "";
-        if (str.equalsIgnoreCase("a")) {
-            bodyPart = "Abs";
-        } else if (str.equalsIgnoreCase("ar")) {
-            bodyPart = "Arm";
-        } else if (str.equalsIgnoreCase("l")) {
-            bodyPart = "Leg";
-        } else {
-            throw new InvalidInputException();
-        }
-        return bodyPart;
-    }
-
-        /** Returns an ImageIcon, or null if the path was invalid. */
-    protected ImageIcon createImageIcon(String path, String description) {
-        java.net.URL imgURL = getClass().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL, description);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-    }
-
+    // Represent an Action that remove an exercise to the plan
     private class RemoveExercisePlanAction extends AbstractAction {
+
+        // EFFECTS: Instantiate the add exercise plan action
         RemoveExercisePlanAction() {
             super("Remove Seleted Exercise from Plan");
         }
 
+        // MODIFIES: this
+        // EFFECTS: remove an exercise from the plan when clicked
         @Override
         public void actionPerformed(ActionEvent evt) {
             Exercise exercise = plan.getExercises().get(list.getSelectedIndex());
@@ -141,11 +105,16 @@ public class PlanGUI extends JFrame{
         }
     }
 
+    // Represent an Action that add an exercise to the plan
     private class AddExercisePlanAction extends AbstractAction {
+
+        // EFFECTS: Instantiate the add exercise plan action
         AddExercisePlanAction() {
             super("Add Seleted Exercise from Collection to Plan");
         }
 
+        // MODIFIES: this
+        // EFFECTS: add an exercise from exerciseCollection to plan when clicked
         @Override
         public void actionPerformed(ActionEvent evt) {
             Exercise exercise = exerciseCollection.getExercises().get(collection.getSelectedIndex());
@@ -154,21 +123,25 @@ public class PlanGUI extends JFrame{
         }
     }
 
+    // Represent an Action that display an image that indicate the start of a
+    // workout
     private class StartExerciseAction extends AbstractAction {
 
+        // EFFECTS: Instantiate of the start exercise action
         StartExerciseAction() {
             super("Start Workout");
         }
 
+        // EFFECTS: Create a new window with only the picture in it when clicked
         @Override
         public void actionPerformed(ActionEvent evt) {
             BufferedImage myPicture;
             try {
                 myPicture = ImageIO.read(new File("./image/workout.jpg"));
-                Image picture = myPicture.getScaledInstance(600,400, myPicture.SCALE_DEFAULT);
-                JLabel image = new JLabel(new ImageIcon(picture));
+                Image resizedPicture = myPicture.getScaledInstance(600, 400, Image.SCALE_DEFAULT);
+                JLabel label = new JLabel(new ImageIcon(resizedPicture));
                 JFrame frame = new JFrame("Start Workout");
-                frame.add(image);
+                frame.add(label);
                 frame.setSize(600, 400);
                 frame.setVisible(true);
             } catch (IOException e) {
@@ -178,16 +151,19 @@ public class PlanGUI extends JFrame{
         }
     }
 
+    // Represent an Action that close the PlanGUI window
     private class QuitAction extends AbstractAction {
 
+        // EFFECTS: Constructe an quit action
         QuitAction() {
             super("Quit Window");
         }
 
+        // MODIFIES: this
+        // EFFECTS: Close the window created by the PlanGUI when clicked
         @Override
         public void actionPerformed(ActionEvent evt) {
             dispose();
         }
     }
 }
-
