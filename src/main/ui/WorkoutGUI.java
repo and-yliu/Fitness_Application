@@ -1,14 +1,16 @@
 package ui;
 
+import java.awt.event.*;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.swing.*;
 
+import model.Event;
+import model.EventLog;
 import model.ExerciseCollection;
 import model.Plan;
 import persistence.JsonReader;
@@ -18,7 +20,7 @@ import persistence.JsonWriter;
 // With references to https://docs.oracle.com/javase/tutorial/uiswing/components/list.html
 // Alarm System: https://github.students.cs.ubc.ca/CPSC210/AlarmSystem.git
 // SimpleDrawingEditor: https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Starter.git
-public class WorkoutGUI extends JFrame {
+public class WorkoutGUI extends JFrame implements WindowListener {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private static final String JSON_FILE_PLAN = "./data/plan.json";
@@ -36,7 +38,7 @@ public class WorkoutGUI extends JFrame {
         super("Workout Planner");
         setSize(WIDTH, HEIGHT);
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         initializeApp();
         setVisible(true);
@@ -57,6 +59,14 @@ public class WorkoutGUI extends JFrame {
         exerciseCollection.addDefaultExercise();
         plan.addRest(0);
         addButtonPanel();
+        addWindowListener(this);
+    }
+
+    // EFFECTS: print the event log to console
+    public void printLog(EventLog eventLog) {
+        for (Event e : eventLog) {
+            System.out.println(e.toString() + "\n");
+        }
     }
 
     // MODIFIES: this
@@ -171,7 +181,42 @@ public class WorkoutGUI extends JFrame {
         @Override
         public void actionPerformed(ActionEvent evt) {
             dispose();
-            System.exit(0);
         }
+    }
+
+    // EFFECTS: print eventlog when window is closed
+    @Override
+    public void windowClosed(WindowEvent e) {
+        printLog(EventLog.getInstance());
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        // Method Not Called
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        // Method Not Called
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        // Method Not Called
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        // Method Not Called
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        // Method Not Called
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        // Method Not Called
     }
 }

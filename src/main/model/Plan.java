@@ -42,4 +42,23 @@ public class Plan extends ListOfExercise {
     public ArrayList<Exercise> getCompletedExercise() {
         return completedExercise;
     }
+
+    // REQUIRES: index >= 0
+    // MODIFIES: this
+    // EFFECTS: add an exercise to the plan to the given index and log it
+    @Override
+    public void addExercise(int index, Exercise exercise) {
+        super.addExercise(index, exercise);
+        EventLog.getInstance().logEvent(new Event("Exercise added to plan: " + exercise.getName()));
+    }
+
+    // REQUIRE: index >= 0
+    // MODIFIES: this
+    // EFFECTS: remove an exercise from the plan at given index and log it
+    @Override
+    public void removeExercise(int index) {
+        EventLog.getInstance()
+                .logEvent(new Event("Exercise removed from plan: " + super.getExercises().get(index).getName()));
+        super.removeExercise(index);
+    }
 }

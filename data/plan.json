@@ -13,14 +13,14 @@
     },
     {
         "duration": 60,
-        "name": "Squats",
-        "description": "Stand feet apart and bend knees",
-        "bodyPart": "Leg"
+        "name": "Sit-Ups",
+        "description": "Lie down, bend knees, and lift torso up",
+        "bodyPart": "Abs"
     },
     {
-        "duration": 30,
-        "name": "Jump",
-        "description": "Jump",
+        "duration": 60,
+        "name": "Squats",
+        "description": "Stand feet apart and bend knees",
         "bodyPart": "Leg"
     }
 ]}

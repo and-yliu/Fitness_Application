@@ -16,11 +16,5 @@
         "name": "Squats",
         "description": "Stand feet apart and bend knees",
         "bodyPart": "Leg"
-    },
-    {
-        "duration": 30,
-        "name": "Jump",
-        "description": "Jump",
-        "bodyPart": "Leg"
     }
 ]}
